@@ -10,16 +10,15 @@
 </head>
 <body>
 
-
-
-
 <div id="container">
 	<h1>To-Do List <i class="fa fa-plus" aria-hidden="true"></i></h1>
-	<input type="text" placeholder="Add New Todo">
-	<ul>
-		<li><span><i class="fa fa-trash"></i></span> Go To Potions Class</li>
-		<li><span><i class="fa fa-trash"></i></span> Buy New Robes</li>
-		<li><span><i class="fa fa-trash"></i></span> Visit Hagrid</li>
+	<form action = "/add" method = "post">
+	<input type= "text" placeholder="Add New Todo" name = "item">
+	</form>
+	<ul> 
+		<% items.forEach(function(item){ %>
+		<li><span><i class="fa fa-trash"></i></span><%=item.task %></li>
+		<% }); %>
 	</ul>
 </div>
 <script>
@@ -28,15 +27,13 @@
 
 });
 
-$("input[type='text']").on("keypress", function(event){
-	if(event.which === 13){
-		var data = $(this).val();
-		var todo = "<li><span><i class='fa fa-trash'></i></span> "+ data + "</li>";
-		$(this).val("");
-		$("ul").append(todo);
-		
 
-	}
+
+$('.input').keypress(function (e) {
+  if (e.which == 13) {
+    $('form#login').submit();
+    return false;    //<---- Add this line
+  }
 });
 
 $("ul").on("click","span", function(event){
