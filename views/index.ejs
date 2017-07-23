@@ -17,7 +17,7 @@
 	</form>
 	<ul> 
 		<% items.forEach(function(item){ %>
-		<li><span><i class="fa fa-trash"></i></span><%=item.task %></li>
+		<li><span><form id = "target" action = "/<%= item._id %>?_method=DELETE" method = "POST"><i class="fa fa-trash"></i></form></span><%=item.task %></li>
 		<% }); %>
 	</ul>
 </div>
@@ -38,10 +38,14 @@ $('.input').keypress(function (e) {
 
 $("ul").on("click","span", function(event){
 	$(this).parent().fadeOut(500, function(){
-		$(this).remove();
+		$('form#target').submit();
+    return false;
+		//$(this).remove();
 	});
 	event.stopPropagation();
 });
+
+
 
 $(".fa-plus").click(function(){
 	$("input[type='text']").fadeToggle();

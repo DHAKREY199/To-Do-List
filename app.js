@@ -1,12 +1,14 @@
 var express = require("express"),
     app     = express(),
     bodyParser = require("body-parser"),
-    mongoose   = require("mongoose");
+    mongoose   = require("mongoose"),
+    methodOverride = require("method-override");
     
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname +"/public"));
+app.use(methodOverride("_method"));
     
 mongoose.connect("mongodb://dhakrey:ghanta@ds143181.mlab.com:43181/todolist");
 var todolist = new mongoose.Schema({
@@ -48,6 +50,15 @@ app.post("/add", function(req, res) {
     });
 });
 
+app.delete("/:id" , function(req , res){
+    List.findByIdAndRemove(req.params.id, function(err){
+        if(err){
+            res.redirect("/");
+        } else {
+            res.redirect("/");
+        }
+    });
+});
 
 app.listen(process.env.PORT, process.env.IP, function () {
     console.log("server has started");

@@ -80,11 +80,13 @@ li:hover span {
 
 p {
 	text-align: center;
+	color: rgb(102, 102, 102);
 }
 
 a:link {
     color: #ED2939;
 }
+
 
 
 
